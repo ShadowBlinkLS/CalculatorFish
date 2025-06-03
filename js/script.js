@@ -76,7 +76,7 @@ function afficherPoissons() {
 
           <!-- Prix avec hauteur fixe -->
           <div class="h-8 flex items-center">
-            <span class="text-peche-accent">€${formaterNombre(poisson.prix)}</span>
+            <span class="text-peche-accent">$${formaterNombre(poisson.prix)}</span>
           </div>
 
           <!-- Input avec hauteur fixe -->
@@ -89,7 +89,7 @@ function afficherPoissons() {
 
           <!-- Total avec hauteur fixe -->
           <div class="h-8 flex items-center justify-end mt-2">
-            <span class="text-peche-dark font-medium">Total : <span class="prix-total">€0</span></span>
+            <span class="text-peche-dark font-medium">Total : <span class="prix-total">$0</span></span>
           </div>
         </div>
       `;
@@ -122,9 +122,9 @@ function initialiserCalculs() {
       const total = prix * quantite * (isDouble ? 2 : 1);
       totalGeneral += total;
 
-      input.closest('.poisson').querySelector('.prix-total').textContent = `€${formaterNombre(total)}`;
+      input.closest('.poisson').querySelector('.prix-total').textContent = `$${formaterNombre(total)}`;
     });
-    prixGeneral.textContent = `€${formaterNombre(totalGeneral)}`;
+    prixGeneral.textContent = `$${formaterNombre(totalGeneral)}`;
   }
 
   inputs.forEach(input => input.addEventListener('input', calculer));
