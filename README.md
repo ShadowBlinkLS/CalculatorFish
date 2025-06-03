@@ -15,6 +15,7 @@ Ce projet a été conçu pour simplifier le comptage et la tarification des pois
 - 🔢 Saisie dynamique des quantités
 - 💰 Calcul automatique du total par poisson et du **total général** et du **total général** x2
 - 🔄 Mise à jour en temps réel des résultats lors de la saisie ou du filtrage
+- 💾 Sauvegarde locale des quantités
 
 ---
 
@@ -44,8 +45,6 @@ Ce projet a été conçu pour simplifier le comptage et la tarification des pois
 ---
 
 ## 📈 Objectifs à venir
-
-- 💾 Sauvegarde locale des quantités
 
 ---
 
