@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Calculateur de pêche</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'peche': {
+              'light': '#FFE4C4',  // Bisque
+              'medium': '#FFA07A', // Light Salmon
+              'dark': '#CD853F',   // Peru
+              'accent': '#4682B4', // Steel Blue
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-peche-light min-h-screen p-8 flex flex-col">
+  <div class="max-w-4xl mx-auto flex-grow">
+    <h1 class="text-3xl font-bold text-peche-dark mb-8 text-center">Calculateur de Poissons</h1>
+
+    <div id="poissons" class="space-y-4 bg-white rounded-lg shadow-lg p-6"></div>
+
+    <div class="mt-8 p-4 bg-peche-medium rounded-lg shadow-md">
+      <p class="text-xl font-semibold text-white text-center">
+        Prix total général : <span id="prix-general" class="text-peche-light">€0</span>
+      </p>
+    </div>
+  </div>
+
+  <footer class="mt-8 text-center text-peche-dark">
+    <div class="max-w-4xl mx-auto py-4 border-t border-peche-medium">
+      <p class="text-sm">
+        Créé avec ❤️ par 
+        <span class="font-semibold text-peche-accent">ShadowBlinkLS</span>
+      </p>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
