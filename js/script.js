@@ -2,6 +2,26 @@ let poissonsData = [];
 let quantites = {};  // objet pour stocker quantités par nom de poisson
 let isDouble = false; // pour suivre l'état de la checkbox
 
+// Fonction pour sauvegarder les quantités dans le localStorage
+function sauvegarderQuantites() {
+  localStorage.setItem('quantites', JSON.stringify(quantites));
+  localStorage.setItem('isDouble', JSON.stringify(isDouble));
+}
+
+// Fonction pour charger les quantités depuis le localStorage
+function chargerQuantites() {
+  const quantitesSauvegardees = localStorage.getItem('quantites');
+  const isDoubleSauvegarde = localStorage.getItem('isDouble');
+  
+  if (quantitesSauvegardees) {
+    quantites = JSON.parse(quantitesSauvegardees);
+  }
+  
+  if (isDoubleSauvegarde) {
+    isDouble = JSON.parse(isDoubleSauvegarde);
+  }
+}
+
 // Fonction pour formater les nombres avec des espaces
 function formaterNombre(nombre) {
   return nombre.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
@@ -13,27 +33,43 @@ async function chargerPoissons() {
   afficherPoissons();
 }
 
+function resetQuantites() {
+  quantites = {};
+  isDouble = false;
+  localStorage.removeItem('quantites');
+  localStorage.removeItem('isDouble');
+  afficherPoissons();
+}
+
 function afficherPoissons() {
   const container = document.getElementById('poissons');
   container.innerHTML = '';
 
-  // Ajouter la checkbox x2
-  const checkboxContainer = document.createElement('div');
-  checkboxContainer.className = 'mb-4 flex items-center justify-end';
-  checkboxContainer.innerHTML = `
+  // Ajouter la checkbox x2 et le bouton reset
+  const controlsContainer = document.createElement('div');
+  controlsContainer.className = 'mb-4 flex items-center justify-end space-x-4';
+  controlsContainer.innerHTML = `
     <label class="flex items-center space-x-2 cursor-pointer">
-      <input type="checkbox" id="multiplier" class="form-checkbox h-5 w-5 text-peche-accent rounded border-peche-medium focus:ring-peche-accent">
+      <input type="checkbox" id="multiplier" class="form-checkbox h-5 w-5 text-peche-accent rounded border-peche-medium focus:ring-peche-accent" ${isDouble ? 'checked' : ''}>
       <span class="text-peche-dark font-medium">x2</span>
     </label>
+    <button id="reset" class="px-4 py-2 bg-peche-medium text-white rounded-lg hover:bg-peche-dark transition-colors duration-200 font-medium shadow-md hover:shadow-lg">
+      Reset
+    </button>
   `;
-  container.appendChild(checkboxContainer);
+  container.appendChild(controlsContainer);
 
   // Ajouter l'écouteur d'événement pour la checkbox
-  const checkbox = checkboxContainer.querySelector('#multiplier');
+  const checkbox = controlsContainer.querySelector('#multiplier');
   checkbox.addEventListener('change', (e) => {
     isDouble = e.target.checked;
+    sauvegarderQuantites();
     initialiserCalculs();
   });
+
+  // Ajouter l'écouteur d'événement pour le bouton reset
+  const resetButton = controlsContainer.querySelector('#reset');
+  resetButton.addEventListener('click', resetQuantites);
 
   // Grouper les poissons par rareté
   const poissonsParRarete = poissonsData.reduce((acc, poisson) => {
@@ -118,6 +154,9 @@ function initialiserCalculs() {
 
       // Mettre à jour la quantité sauvegardée
       quantites[nom] = quantite;
+      
+      // Sauvegarder les quantités après chaque modification
+      sauvegarderQuantites();
 
       const total = prix * quantite * (isDouble ? 2 : 1);
       totalGeneral += total;
@@ -131,4 +170,6 @@ function initialiserCalculs() {
   calculer();
 }
 
+// Charger les données sauvegardées au démarrage
+chargerQuantites();
 chargerPoissons();
