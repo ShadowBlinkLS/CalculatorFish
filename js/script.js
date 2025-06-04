@@ -71,11 +71,11 @@ function afficherPoissons() {
   const controlsContainer = document.createElement('div');
   controlsContainer.className = 'mb-4 flex items-center justify-end space-x-4';
   controlsContainer.innerHTML = `
-    <label class="flex items-center space-x-2 cursor-pointer">
-      <input type="checkbox" id="multiplier" class="form-checkbox h-5 w-5 text-peche-accent rounded border-peche-medium focus:ring-peche-accent" ${isDouble ? 'checked' : ''}>
-      <span class="text-peche-dark dark:text-peche-light font-medium">x2</span>
+    <label class="flex items-center space-x-2 cursor-pointer group">
+      <input type="checkbox" id="multiplier" class="form-checkbox h-5 w-5 text-peche-accent rounded border-peche-medium focus:ring-peche-accent transition-transform duration-300 group-hover:scale-110" ${isDouble ? 'checked' : ''}>
+      <span class="text-peche-dark dark:text-peche-light font-medium group-hover:text-peche-accent transition-colors duration-300">x2</span>
     </label>
-    <button id="reset" class="px-4 py-2 bg-peche-medium dark:bg-gray-700 text-white rounded-lg hover:bg-peche-dark dark:hover:bg-gray-600 transition-colors duration-200 font-medium shadow-md hover:shadow-lg">
+    <button id="reset" class="px-4 py-2 bg-peche-medium dark:bg-gray-700 text-white rounded-lg hover:bg-peche-dark dark:hover:bg-gray-600 transition-all duration-300 font-medium shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95">
       Reset
     </button>
   `;
@@ -103,25 +103,27 @@ function afficherPoissons() {
   }, {});
 
   // Créer un bloc pour chaque rareté
-  Object.entries(poissonsParRarete).forEach(([rarete, poissons]) => {
+  Object.entries(poissonsParRarete).forEach(([rarete, poissons], index) => {
     const sectionRarete = document.createElement('div');
-    sectionRarete.className = 'mb-8';
+    sectionRarete.className = 'mb-8 transform transition-all duration-500 hover:scale-[1.02]';
+    sectionRarete.style.animationDelay = `${index * 100}ms`;
     
     const header = document.createElement('div');
-    header.className = 'bg-peche-medium dark:bg-gray-700 text-white p-4 rounded-t-lg shadow-md';
+    header.className = 'bg-peche-medium dark:bg-gray-700 text-white p-4 rounded-t-lg shadow-md transform transition-all duration-300 hover:shadow-lg';
     header.innerHTML = `<h2 class="text-xl font-bold">${rarete}</h2>`;
     sectionRarete.appendChild(header);
 
     const poissonsContainer = document.createElement('div');
-    poissonsContainer.className = 'bg-white dark:bg-gray-800 rounded-b-lg shadow-lg p-6';
+    poissonsContainer.className = 'bg-white dark:bg-gray-800 rounded-b-lg shadow-lg p-6 transform transition-all duration-300 hover:shadow-xl';
     
     // Créer une grille horizontale pour les poissons
     const poissonsGrid = document.createElement('div');
     poissonsGrid.className = 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4';
 
-    poissons.forEach(poisson => {
+    poissons.forEach((poisson, poissonIndex) => {
       const div = document.createElement('div');
-      div.className = 'poisson bg-white dark:bg-gray-800 p-4 rounded-lg border border-peche-light dark:border-gray-700 hover:shadow-md transition-shadow duration-200';
+      div.className = 'poisson bg-white dark:bg-gray-800 p-4 rounded-lg border border-peche-light dark:border-gray-700 hover:shadow-md transition-all duration-300 transform hover:scale-105 hover:-translate-y-1';
+      div.style.animationDelay = `${(index * 100) + (poissonIndex * 50)}ms`;
 
       const qte = quantites[poisson.nom] || 0;
 
@@ -129,12 +131,12 @@ function afficherPoissons() {
         <div class="flex flex-col h-full">
           <!-- Nom du poisson avec hauteur fixe et retour à la ligne -->
           <div class="h-12 flex items-start">
-            <span class="text-lg font-semibold text-peche-dark dark:text-peche-light line-clamp-2">${poisson.nom}</span>
+            <span class="text-lg font-semibold text-peche-dark dark:text-peche-light line-clamp-2 transition-colors duration-300 group-hover:text-peche-accent">${poisson.nom}</span>
           </div>
 
           <!-- Prix avec hauteur fixe -->
           <div class="h-8 flex items-center">
-            <span class="text-peche-accent">$${formaterNombre(poisson.prix)}</span>
+            <span class="text-peche-accent transition-all duration-300 group-hover:scale-110">$${formaterNombre(poisson.prix)}</span>
           </div>
 
           <!-- Input avec hauteur fixe -->
@@ -142,12 +144,12 @@ function afficherPoissons() {
             <input type="number" min="0" value="${qte}" 
                    data-prix="${poisson.prix}" 
                    data-nom="${poisson.nom}" 
-                   class="quantite w-20 px-2 py-1 border border-peche-medium dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-peche-accent bg-white dark:bg-gray-700 text-peche-dark dark:text-peche-light">
+                   class="quantite w-20 px-2 py-1 border border-peche-medium dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-peche-accent bg-white dark:bg-gray-700 text-peche-dark dark:text-peche-light transition-all duration-300 hover:border-peche-accent focus:scale-105">
           </div>
 
           <!-- Total avec hauteur fixe -->
           <div class="h-8 flex items-center justify-end mt-2">
-            <span class="text-peche-dark dark:text-peche-light font-medium">Total : <span class="prix-total">$0</span></span>
+            <span class="text-peche-dark dark:text-peche-light font-medium transition-colors duration-300">Total : <span class="prix-total transition-all duration-300">$0</span></span>
           </div>
         </div>
       `;

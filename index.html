@@ -16,6 +16,23 @@
               'dark': '#CD853F',   // Peru
               'accent': '#4682B4', // Steel Blue
             }
+          },
+          animation: {
+            'float': 'float 3s ease-in-out infinite',
+            'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'bounce-slow': 'bounce 3s infinite',
+            'spin-slow': 'spin 3s linear infinite',
+            'wiggle': 'wiggle 1s ease-in-out infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-10px)' },
+            },
+            wiggle: {
+              '0%, 100%': { transform: 'rotate(-3deg)' },
+              '50%': { transform: 'rotate(3deg)' },
+            }
           }
         }
       }
@@ -25,22 +42,22 @@
 <body class="bg-peche-light dark:bg-gray-900 min-h-screen p-8 flex flex-col transition-colors duration-200">
   <div class="max-w-4xl mx-auto flex-grow">
     <div class="flex justify-between items-center mb-8">
-      <h1 class="text-3xl font-bold text-peche-dark dark:text-peche-light mb-8 text-center">Calculateur de Poissons</h1>
-      <button id="theme-toggle" class="p-2 rounded-lg bg-peche-medium dark:bg-gray-700 text-white hover:bg-peche-dark dark:hover:bg-gray-600 transition-colors">
-        <svg class="w-6 h-6 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <h1 class="text-3xl font-bold text-peche-dark dark:text-peche-light mb-8 text-center animate-float">Calculateur de Poissons</h1>
+      <button id="theme-toggle" class="p-2 rounded-lg bg-peche-medium dark:bg-gray-700 text-white hover:bg-peche-dark dark:hover:bg-gray-600 transition-all duration-300 transform hover:scale-110 hover:rotate-12">
+        <svg class="w-6 h-6 dark:hidden animate-pulse-slow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
         </svg>
-        <svg class="w-6 h-6 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="w-6 h-6 hidden dark:block animate-spin-slow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
         </svg>
       </button>
     </div>
 
-    <div id="poissons" class="space-y-4 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6"></div>
+    <div id="poissons" class="space-y-4 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 transform transition-all duration-300 hover:shadow-xl"></div>
 
-    <div class="mt-8 p-4 bg-peche-medium dark:bg-gray-700 rounded-lg shadow-md">
+    <div class="mt-8 p-4 bg-peche-medium dark:bg-gray-700 rounded-lg shadow-md transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl">
       <p class="text-xl font-semibold text-white text-center">
-        Prix total général : <span id="prix-general" class="text-peche-light dark:text-peche-light">$0</span>
+        Prix total général : <span id="prix-general" class="text-peche-light dark:text-peche-light animate-pulse-slow">$0</span>
       </p>
     </div>
   </div>
@@ -48,8 +65,8 @@
   <footer class="mt-8 text-center text-peche-dark dark:text-peche-light">
     <div class="max-w-4xl mx-auto py-4 border-t border-peche-medium dark:border-gray-700">
       <p class="text-sm">
-        Créé avec ❤️ par 
-        <span class="font-semibold text-peche-accent">ShadowBlinkLS</span>
+        Créé avec <span class="animate-wiggle inline-block">❤️</span> par 
+        <span class="font-semibold text-peche-accent hover:text-peche-dark dark:hover:text-peche-light transition-colors duration-300">ShadowBlinkLS</span>
       </p>
     </div>
   </footer>
