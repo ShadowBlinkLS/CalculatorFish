@@ -2,6 +2,28 @@ let poissonsData = [];
 let quantites = {};  // objet pour stocker quantités par nom de poisson
 let isDouble = false; // pour suivre l'état de la checkbox
 
+// Gestion du mode sombre
+function initialiserModeSombre() {
+  // Vérifier si le mode sombre est activé dans le localStorage
+  const isDarkMode = localStorage.getItem('darkMode') === 'true';
+  
+  // Appliquer le mode sombre si nécessaire
+  if (isDarkMode) {
+    document.documentElement.classList.add('dark');
+  }
+
+  // Ajouter l'écouteur d'événement pour le bouton de basculement
+  const themeToggle = document.getElementById('theme-toggle');
+  themeToggle.addEventListener('click', () => {
+    document.documentElement.classList.toggle('dark');
+    // Sauvegarder la préférence
+    localStorage.setItem('darkMode', document.documentElement.classList.contains('dark'));
+  });
+}
+
+// Initialiser le mode sombre au chargement
+initialiserModeSombre();
+
 // Fonction pour sauvegarder les quantités dans le localStorage
 function sauvegarderQuantites() {
   localStorage.setItem('quantites', JSON.stringify(quantites));
@@ -51,9 +73,9 @@ function afficherPoissons() {
   controlsContainer.innerHTML = `
     <label class="flex items-center space-x-2 cursor-pointer">
       <input type="checkbox" id="multiplier" class="form-checkbox h-5 w-5 text-peche-accent rounded border-peche-medium focus:ring-peche-accent" ${isDouble ? 'checked' : ''}>
-      <span class="text-peche-dark font-medium">x2</span>
+      <span class="text-peche-dark dark:text-peche-light font-medium">x2</span>
     </label>
-    <button id="reset" class="px-4 py-2 bg-peche-medium text-white rounded-lg hover:bg-peche-dark transition-colors duration-200 font-medium shadow-md hover:shadow-lg">
+    <button id="reset" class="px-4 py-2 bg-peche-medium dark:bg-gray-700 text-white rounded-lg hover:bg-peche-dark dark:hover:bg-gray-600 transition-colors duration-200 font-medium shadow-md hover:shadow-lg">
       Reset
     </button>
   `;
@@ -86,12 +108,12 @@ function afficherPoissons() {
     sectionRarete.className = 'mb-8';
     
     const header = document.createElement('div');
-    header.className = 'bg-peche-medium text-white p-4 rounded-t-lg shadow-md';
+    header.className = 'bg-peche-medium dark:bg-gray-700 text-white p-4 rounded-t-lg shadow-md';
     header.innerHTML = `<h2 class="text-xl font-bold">${rarete}</h2>`;
     sectionRarete.appendChild(header);
 
     const poissonsContainer = document.createElement('div');
-    poissonsContainer.className = 'bg-white rounded-b-lg shadow-lg p-6';
+    poissonsContainer.className = 'bg-white dark:bg-gray-800 rounded-b-lg shadow-lg p-6';
     
     // Créer une grille horizontale pour les poissons
     const poissonsGrid = document.createElement('div');
@@ -99,7 +121,7 @@ function afficherPoissons() {
 
     poissons.forEach(poisson => {
       const div = document.createElement('div');
-      div.className = 'poisson bg-white p-4 rounded-lg border border-peche-light hover:shadow-md transition-shadow duration-200';
+      div.className = 'poisson bg-white dark:bg-gray-800 p-4 rounded-lg border border-peche-light dark:border-gray-700 hover:shadow-md transition-shadow duration-200';
 
       const qte = quantites[poisson.nom] || 0;
 
@@ -107,7 +129,7 @@ function afficherPoissons() {
         <div class="flex flex-col h-full">
           <!-- Nom du poisson avec hauteur fixe et retour à la ligne -->
           <div class="h-12 flex items-start">
-            <span class="text-lg font-semibold text-peche-dark line-clamp-2">${poisson.nom}</span>
+            <span class="text-lg font-semibold text-peche-dark dark:text-peche-light line-clamp-2">${poisson.nom}</span>
           </div>
 
           <!-- Prix avec hauteur fixe -->
@@ -120,12 +142,12 @@ function afficherPoissons() {
             <input type="number" min="0" value="${qte}" 
                    data-prix="${poisson.prix}" 
                    data-nom="${poisson.nom}" 
-                   class="quantite w-20 px-2 py-1 border border-peche-medium rounded focus:outline-none focus:ring-2 focus:ring-peche-accent">
+                   class="quantite w-20 px-2 py-1 border border-peche-medium dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-peche-accent bg-white dark:bg-gray-700 text-peche-dark dark:text-peche-light">
           </div>
 
           <!-- Total avec hauteur fixe -->
           <div class="h-8 flex items-center justify-end mt-2">
-            <span class="text-peche-dark font-medium">Total : <span class="prix-total">$0</span></span>
+            <span class="text-peche-dark dark:text-peche-light font-medium">Total : <span class="prix-total">$0</span></span>
           </div>
         </div>
       `;
