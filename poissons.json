@@ -37,7 +37,7 @@
     { "nom": "Poisson nebuleux", "prix": 550000, "zone": ["Tropical"], "rarete": "Mythique" },
     { "nom": "Orque", "prix": 700000, "zone": ["Antarctique"], "rarete": "Mythique" },
 
-    { "nom": "Requin", "prix": 8500000, "zone": ["Cayo"], "rarete": "Unique" },
+    { "nom": "Requin", "prix": 8500000, "zone": ["Tropical"], "rarete": "Unique" },
     { "nom": "Kraken", "prix": 8125000, "zone": ["Océan"], "rarete": "Unique" },
     { "nom": "Silure", "prix": 7500000, "zone": ["Eau douce"], "rarete": "Unique" },
     { "nom": "Poisson Lune", "prix": 12000000, "zone": ["Océan"], "rarete": "Unique" },
