@@ -253,3 +253,14 @@ function initialiserCalculs() {
 // Charger les données sauvegardées au démarrage
 chargerQuantites();
 chargerPoissons();
+
+// Modale première visite
+document.addEventListener('DOMContentLoaded', () => {
+  if (!localStorage.getItem('visited')) {
+    document.getElementById('first-visit-modal').classList.remove('hidden');
+  }
+  document.getElementById('close-modal').addEventListener('click', () => {
+    document.getElementById('first-visit-modal').classList.add('hidden');
+    localStorage.setItem('visited', 'true');
+  });
+});
