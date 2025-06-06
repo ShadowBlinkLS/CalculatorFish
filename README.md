@@ -46,6 +46,8 @@ Ce projet a été conçu pour simplifier le comptage et la tarification des pois
 
 ## 📈 Objectifs à venir
 
+- **Calcul automatique** à partir d'une capture d'écran du sac du joueur et/ou du coffre du véhicule
+
 ---
 
 ## 🧑‍💻 Auteur
