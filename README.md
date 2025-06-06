@@ -22,7 +22,6 @@ Ce projet a été conçu pour simplifier le comptage et la tarification des pois
 ## 🗂️ Organisation des fichiers
 
 - `index.html` : Interface principale du calculateur
-- `style.css` : Apparence et mise en forme
 - `script.js` : Logique de calcul, filtres, et événements
 - `poissons.json` : Fichier de données listant tous les poissons, leurs prix, rareté et zone
 
@@ -30,7 +29,7 @@ Ce projet a été conçu pour simplifier le comptage et la tarification des pois
 
 ## ✨ Exemples d’utilisation
 
-- Entrer des quantités pour chaque poisson affiché
+- Entrer des quantités pour chaque poisson affiché, filtrer par rareté/zone
 - Le total s’affiche automatiquement en bas
 
 ---
