@@ -1,6 +1,8 @@
 let poissonsData = [];
 let quantites = {};  // objet pour stocker quantités par nom de poisson
 let isDouble = false; // pour suivre l'état de la checkbox
+let zoneActuelle = "Toutes"; // zone par défaut
+let rareteActuelle = "Toutes"; // rareté par défaut
 
 // Gestion du mode sombre
 function initialiserModeSombre() {
@@ -63,26 +65,82 @@ function resetQuantites() {
   afficherPoissons();
 }
 
+// Fonction pour obtenir toutes les zones uniques
+function obtenirZones() {
+  const zones = new Set();
+  poissonsData.forEach(poisson => {
+    poisson.zone.forEach(zone => zones.add(zone));
+  });
+  return ["Toutes", ...Array.from(zones)];
+}
+
+// Fonction pour obtenir toutes les raretés uniques
+function obtenirRaretes() {
+  const raretes = new Set(poissonsData.map(poisson => poisson.rarete));
+  return ["Toutes", ...Array.from(raretes)];
+}
+
+// Fonction pour filtrer les poissons par zone et rareté
+function filtrerPoissons(zone, rarete) {
+  return poissonsData.filter(poisson => {
+    const zoneMatch = zone === "Toutes" || poisson.zone.includes(zone);
+    const rareteMatch = rarete === "Toutes" || poisson.rarete === rarete;
+    return zoneMatch && rareteMatch;
+  });
+}
+
 function afficherPoissons() {
   const container = document.getElementById('poissons');
   container.innerHTML = '';
 
-  // Ajouter la checkbox x2 et le bouton reset
-  const controlsContainer = document.createElement('div');
-  controlsContainer.className = 'mb-4 flex items-center justify-end space-x-4';
-  controlsContainer.innerHTML = `
-    <label class="flex items-center space-x-2 cursor-pointer group">
-      <input type="checkbox" id="multiplier" class="form-checkbox h-5 w-5 text-peche-accent rounded border-peche-medium focus:ring-peche-accent transition-transform duration-300 group-hover:scale-110" ${isDouble ? 'checked' : ''}>
-      <span class="text-peche-dark dark:text-peche-light font-medium group-hover:text-peche-accent transition-colors duration-300">x2</span>
-    </label>
-    <button id="reset" class="px-4 py-2 bg-peche-medium dark:bg-gray-700 text-white rounded-lg hover:bg-peche-dark dark:hover:bg-gray-600 transition-all duration-300 font-medium shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95">
-      Reset
-    </button>
+  // Ajouter les sélecteurs de zone et rareté
+  const zones = obtenirZones();
+  const raretes = obtenirRaretes();
+  const filtersContainer = document.createElement('div');
+  filtersContainer.className = 'mb-4 flex items-center justify-between space-x-4';
+  filtersContainer.innerHTML = `
+    <div class="flex items-center space-x-4">
+      <div class="flex items-center space-x-2">
+        <label class="text-peche-dark dark:text-peche-light font-medium">Zone :</label>
+        <select id="zone-select" class="form-select px-4 py-2 bg-white dark:bg-gray-700 border border-peche-medium dark:border-gray-600 rounded-lg text-peche-dark dark:text-peche-light focus:outline-none focus:ring-2 focus:ring-peche-accent transition-all duration-300">
+          ${zones.map(zone => `<option value="${zone}" ${zone === zoneActuelle ? 'selected' : ''}>${zone}</option>`).join('')}
+        </select>
+      </div>
+      <div class="flex items-center space-x-2">
+        <label class="text-peche-dark dark:text-peche-light font-medium">Rareté :</label>
+        <select id="rarete-select" class="form-select px-4 py-2 bg-white dark:bg-gray-700 border border-peche-medium dark:border-gray-600 rounded-lg text-peche-dark dark:text-peche-light focus:outline-none focus:ring-2 focus:ring-peche-accent transition-all duration-300">
+          ${raretes.map(rarete => `<option value="${rarete}" ${rarete === rareteActuelle ? 'selected' : ''}>${rarete}</option>`).join('')}
+        </select>
+      </div>
+    </div>
+    <div class="flex items-center space-x-4">
+      <label class="flex items-center space-x-2 cursor-pointer group">
+        <input type="checkbox" id="multiplier" class="form-checkbox h-5 w-5 text-peche-accent rounded border-peche-medium focus:ring-peche-accent transition-transform duration-300 group-hover:scale-110" ${isDouble ? 'checked' : ''}>
+        <span class="text-peche-dark dark:text-peche-light font-medium group-hover:text-peche-accent transition-colors duration-300">x2</span>
+      </label>
+      <button id="reset" class="px-4 py-2 bg-peche-medium dark:bg-gray-700 text-white rounded-lg hover:bg-peche-dark dark:hover:bg-gray-600 transition-all duration-300 font-medium shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95">
+        Reset
+      </button>
+    </div>
   `;
-  container.appendChild(controlsContainer);
+  container.appendChild(filtersContainer);
+
+  // Ajouter l'écouteur d'événement pour le sélecteur de zone
+  const selectZone = filtersContainer.querySelector('#zone-select');
+  selectZone.addEventListener('change', (e) => {
+    zoneActuelle = e.target.value;
+    afficherPoissons();
+  });
+
+  // Ajouter l'écouteur d'événement pour le sélecteur de rareté
+  const selectRarete = filtersContainer.querySelector('#rarete-select');
+  selectRarete.addEventListener('change', (e) => {
+    rareteActuelle = e.target.value;
+    afficherPoissons();
+  });
 
   // Ajouter l'écouteur d'événement pour la checkbox
-  const checkbox = controlsContainer.querySelector('#multiplier');
+  const checkbox = filtersContainer.querySelector('#multiplier');
   checkbox.addEventListener('change', (e) => {
     isDouble = e.target.checked;
     sauvegarderQuantites();
@@ -90,11 +148,14 @@ function afficherPoissons() {
   });
 
   // Ajouter l'écouteur d'événement pour le bouton reset
-  const resetButton = controlsContainer.querySelector('#reset');
+  const resetButton = filtersContainer.querySelector('#reset');
   resetButton.addEventListener('click', resetQuantites);
 
+  // Filtrer les poissons pour la zone et rareté actuelles
+  const poissonsFiltres = filtrerPoissons(zoneActuelle, rareteActuelle);
+
   // Grouper les poissons par rareté
-  const poissonsParRarete = poissonsData.reduce((acc, poisson) => {
+  const poissonsParRarete = poissonsFiltres.reduce((acc, poisson) => {
     if (!acc[poisson.rarete]) {
       acc[poisson.rarete] = [];
     }
@@ -116,7 +177,6 @@ function afficherPoissons() {
     const poissonsContainer = document.createElement('div');
     poissonsContainer.className = 'bg-white dark:bg-gray-800 rounded-b-lg shadow-lg p-6 transform transition-all duration-300 hover:shadow-xl';
     
-    // Créer une grille horizontale pour les poissons
     const poissonsGrid = document.createElement('div');
     poissonsGrid.className = 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4';
 
@@ -129,17 +189,14 @@ function afficherPoissons() {
 
       div.innerHTML = `
         <div class="flex flex-col h-full">
-          <!-- Nom du poisson avec hauteur fixe et retour à la ligne -->
           <div class="h-12 flex items-start">
             <span class="text-lg font-semibold text-peche-dark dark:text-peche-light line-clamp-2 transition-colors duration-300 group-hover:text-peche-accent">${poisson.nom}</span>
           </div>
 
-          <!-- Prix avec hauteur fixe -->
           <div class="h-8 flex items-center">
             <span class="text-peche-accent transition-all duration-300 group-hover:scale-110">$${formaterNombre(poisson.prix)}</span>
           </div>
 
-          <!-- Input avec hauteur fixe -->
           <div class="h-10 flex items-center">
             <input type="number" min="0" value="${qte}" 
                    data-prix="${poisson.prix}" 
@@ -147,7 +204,6 @@ function afficherPoissons() {
                    class="quantite w-20 px-2 py-1 border border-peche-medium dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-peche-accent bg-white dark:bg-gray-700 text-peche-dark dark:text-peche-light transition-all duration-300 hover:border-peche-accent focus:scale-105">
           </div>
 
-          <!-- Total avec hauteur fixe -->
           <div class="h-8 flex items-center justify-end mt-2">
             <span class="text-peche-dark dark:text-peche-light font-medium transition-colors duration-300">Total : <span class="prix-total transition-all duration-300">$0</span></span>
           </div>
