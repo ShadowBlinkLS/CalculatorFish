@@ -6,11 +6,13 @@
     { "nom": "Poisson Chrono", "prix": 480, "zone": ["Eau douce"], "rarete": "Commun" },
     { "nom": "Crabe", "prix": 400, "zone": ["Tropical"], "rarete": "Commun" },
     { "nom": "Saumon", "prix": 600, "zone": ["Antarctique"], "rarete": "Commun" },
+
     { "nom": "Raie Manta", "prix": 1500, "zone": ["Océan"], "rarete": "Rare" },
     { "nom": "Poisson Ecliptic", "prix": 2000, "zone": ["Océan"], "rarete": "Rare" },
     { "nom": "Anguille", "prix": 2000, "zone": ["Eau douce"], "rarete": "Rare" },
     { "nom": "Blob fish", "prix": 1500, "zone": ["Tropical"], "rarete": "Rare" },
     { "nom": "Lingcod", "prix": 3000, "zone": ["Antarctique"], "rarete": "Rare" },
+
     { "nom": "Tortue", "prix": 5000, "zone": ["Océan"], "rarete": "Epique" },
     { "nom": "Squille Multicolore", "prix": 6000, "zone": ["Océan"], "rarete": "Epique" },
     { "nom": "Brochet", "prix": 6150, "zone": ["Eau douce"], "rarete": "Epique" },
@@ -19,18 +21,26 @@
     { "nom": "Poisson globe", "prix": 4000, "zone": ["Tropical"], "rarete": "Epique" },
     { "nom": "Poisson Pulsar", "prix": 5000, "zone": ["Tropical"], "rarete": "Epique" },
     { "nom": "Labre glacé", "prix": 7000, "zone": ["Antarctique"], "rarete": "Epique" },
+
     { "nom": "Homard", "prix": 13500, "zone": ["Océan"], "rarete": "Légendaire" },
     { "nom": "Gardon", "prix": 17900, "zone": ["Eau douce"], "rarete": "Légendaire" },
     { "nom": "Poisson Galaxy", "prix": 17250, "zone": ["Eau douce"], "rarete": "Légendaire" },
     { "nom": "Espadon", "prix": 10000, "zone": ["Tropical"], "rarete": "Légendaire" },
     { "nom": "Poisson Mandarin", "prix": 12500, "zone": ["Tropical"], "rarete": "Légendaire" },
     { "nom": "Pieuvre", "prix": 20000, "zone": ["Antarctique"], "rarete": "Légendaire" },
+
     { "nom": "Thon", "prix": 350000, "zone": ["Océan"], "rarete": "Mythique" },
     { "nom": "Dragon bleu des mers", "prix": 600000, "zone": ["Océan"], "rarete": "Mythique" },
     { "nom": "Perche jaune", "prix": 500000, "zone": ["Eau douce"], "rarete": "Mythique" },
     { "nom": "Poisson Vortex", "prix": 600000, "zone": ["Eau douce"], "rarete": "Mythique" },
     { "nom": "Poisson dragon rouge", "prix": 550000, "zone": ["Tropical"], "rarete": "Mythique" },
     { "nom": "Poisson nebuleux", "prix": 550000, "zone": ["Tropical"], "rarete": "Mythique" },
-    { "nom": "Orque", "prix": 700000, "zone": ["Antarctique"], "rarete": "Mythique" }
+    { "nom": "Orque", "prix": 700000, "zone": ["Antarctique"], "rarete": "Mythique" },
+
+    { "nom": "Requin", "prix": 8500000, "zone": ["Cayo"], "rarete": "Unique" },
+    { "nom": "Kraken", "prix": 8125000, "zone": ["Océan"], "rarete": "Unique" },
+    { "nom": "Silure", "prix": 7500000, "zone": ["Eau douce"], "rarete": "Unique" },
+    { "nom": "Poisson Lune", "prix": 12000000, "zone": ["Océan"], "rarete": "Unique" },
+    { "nom": "Baleine à bosses", "prix": 9000000, "zone": ["Antarctique"], "rarete": "Unique" }
   ]
   
