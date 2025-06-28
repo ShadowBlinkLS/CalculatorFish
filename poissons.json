@@ -17,6 +17,7 @@
     { "nom": "Lingcod", "prix": 3000, "zone": ["Antarctique"], "rarete": "Rare" },
     { "nom": "Poisson Oscar", "prix": 1515, "zone": ["Tropical"], "rarete": "Rare" },
     { "nom": "Poisson Clown", "prix": 1635, "zone": ["Tropical"], "rarete": "Rare" },
+    { "nom": "Poisson Rocheux", "prix": 1480, "zone": ["Océan"], "rarete": "Rare" },
 
     { "nom": "Tortue", "prix": 5000, "zone": ["Océan"], "rarete": "Epique" },
     { "nom": "Squille Multicolore", "prix": 6000, "zone": ["Océan"], "rarete": "Epique" },
